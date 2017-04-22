@@ -32,7 +32,7 @@ func robots(w http.ResponseWriter, r *http.Request) {
 func listen(w http.ResponseWriter, r *http.Request) {    
   check := func(err error) {
     if err != nil {
-      log.Fatal(err)
+      log.Print(err)
     }
   }
   defaultName := "Barnaby"  
