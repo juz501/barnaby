@@ -48,7 +48,7 @@ func listen(w http.ResponseWriter, r *http.Request) {
     Name: name,
   }
   
-  t, err := template.ParseFiles("template.tmpl")  
+  t, err := template.ParseFiles("template.html.tmpl")  
   check(err)
   err = t.Execute(w, data)  
   check(err)  
