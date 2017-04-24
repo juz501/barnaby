@@ -1,6 +1,6 @@
 package main
 
-import (  
+import (
   "html/template"
   "log"
   "net/http"
@@ -8,9 +8,8 @@ import (
 )
 
 func main() {
-  
   http.HandleFunc("/", listen);
-  http.HandleFunc("/robots.txt", robots)  
+  http.HandleFunc("/robots.txt", robots)
   http.Handle("/static/", noDirListing(http.StripPrefix("/static/", http.FileServer(http.Dir("assets")))))
   log.Fatal(http.ListenAndServe(":80", nil))
 }
@@ -29,27 +28,27 @@ func robots(w http.ResponseWriter, r *http.Request) {
   http.ServeFile(w, r, "assets/robots.txt")
 }
 
-func listen(w http.ResponseWriter, r *http.Request) {    
+func listen(w http.ResponseWriter, r *http.Request) {
   check := func(err error) {
     if err != nil {
       log.Print(err)
     }
   }
-  defaultName := "Barnaby"  
+  defaultName := "Barnaby"
   queryName := r.URL.Query().Get("name")
   name := defaultName
   if len(queryName) != 0 {
     name = queryName
   }
-  
+
   data := struct {
     Name string
   }{
     Name: name,
   }
-  
-  t, err := template.ParseFiles("template.html.tmpl")  
+
+  t, err := template.ParseFiles("template.html.tmpl")
   check(err)
-  err = t.Execute(w, data)  
-  check(err)  
+  err = t.Execute(w, data)
+  check(err)
 }
